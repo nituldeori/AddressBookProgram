@@ -20,7 +20,7 @@ public class AddressDatabase {
     	this.addressDatabaseName=addressDatabaseName;
     }
     public void printDatabase() {
-    	System.out.println("Database Name: "+addressDatabaseName);
+    	System.out.println("Address Book Name: "+addressDatabaseName);
     	System.out.println("Details of Contacts in the database: ");
     	for(Contacts c:database) {
     		c.printDetails();

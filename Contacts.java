@@ -43,28 +43,28 @@ public class Contacts {
     public String getEmail() {
     	return email;
     }
-    public void setFirstName() {
+    public void setFirstName(String firstName) {
     	this.firstName=firstName;
     }
-    public void setLastName() {
+    public void setLastName(String lastName) {
     	this.lastName=lastName;
     }
-    public void setAddress() {
+    public void setAddress(String address) {
     	this.address=address;
     }
-    public void setCity() {
+    public void setCity(String city) {
     	this.city=city;
     }
-    public void setState() {
+    public void setState(String state) {
     	this.state=state;
     }
-    public void setZip() {
+    public void setZip(long zip) {
     	this.zip=zip;
     }
-    public void setPhoneNumber() {
+    public void setPhoneNumber(String phoneNumber) {
     	this.phoneNumber=phoneNumber;
     }
-    public void setEmail() {
+    public void setEmail(String email) {
     	this.email=email;
     }
     public void printDetails() {
