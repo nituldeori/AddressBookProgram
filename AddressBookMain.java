@@ -1,5 +1,6 @@
 package addressBook;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class AddressBookMain {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
@@ -22,7 +23,12 @@ public class AddressBookMain {
 		System.out.println("Enter the email of contact: ");
 		String email=sc.nextLine();
 		Contacts c=new Contacts(firstName,lastName,address,city,state,zip,phoneNumber,email);
-		c.printDetails();
+		System.out.println("Enter the Address Database Name: ");
+		String addressDatabaseName=sc.nextLine();
+		ArrayList<Contacts> contactsStore=new ArrayList<Contacts>();
+		contactsStore.add(c);
+		AddressDatabase AD=new AddressDatabase(contactsStore,addressDatabaseName);
+		AD.printDatabase();
 	}
 
 }
