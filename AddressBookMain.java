@@ -28,37 +28,14 @@ public class AddressBookMain {
 		ArrayList<Contacts> contactsStore=new ArrayList<Contacts>();
 		contactsStore.add(c);
 		AddressDatabase AD=new AddressDatabase(contactsStore,addressDatabaseName);
-		System.out.println("Enter the first name of the contact whose details you want to edit: ");
-		String editfirstName=sc.nextLine();
-		System.out.println("Enter the last name of the contact whose details you want to edit: ");
-		String editlastName=sc.nextLine();
+		System.out.println("Enter the first name of the contact to be deleted: ");
+		String deletefirstName=sc.nextLine();
+		System.out.println("Enter the last name of the contact to be deleted: ");
+		String deletelastName=sc.nextLine();
 		for(Contacts co:AD.getDatabase()) {
-			if(co.getFirstName().equals(editfirstName) && co.getLastName().equals(editlastName)) {
-				System.out.println("Enter the new first name of contact: ");
-				String newFirstName=sc.nextLine();
-				System.out.println("Enter the new last name of contact: ");
-				String newLastName=sc.nextLine();
-				System.out.println("Enter the new address of contact: ");
-				String newAddress=sc.nextLine();
-				System.out.println("Enter the new city of contact: ");
-				String newCity=sc.nextLine();
-				System.out.println("Enter the new state of contact: ");
-				String newState=sc.nextLine();
-				System.out.println("Enter the new zip of contact: ");
-				long newZip=sc.nextLong();
-				sc.nextLine();
-				System.out.println("Enter the new phone number of contact: ");
-				String newPhoneNumber=sc.nextLine();
-				System.out.println("Enter the new email of contact: ");
-				String newEmail=sc.nextLine();
-				co.setFirstName(newFirstName);
-				co.setLastName(newLastName);
-				co.setAddress(newAddress);
-				co.setCity(newCity);
-				co.setState(newState);
-				co.setZip(newZip);
-				co.setPhoneNumber(newPhoneNumber);
-				co.setEmail(newEmail);
+			if(co.getFirstName().equals(deletefirstName) && co.getLastName().equals(deletelastName)) {
+				
+				AD.getDatabase().remove(co);
 				AD.printDatabase();
 				
 			}

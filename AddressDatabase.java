@@ -20,6 +20,10 @@ public class AddressDatabase {
     	this.addressDatabaseName=addressDatabaseName;
     }
     public void printDatabase() {
+    	if(database.size()==0) {
+    		System.out.println("Address Book is empty");
+    		return;
+    	}
     	System.out.println("Address Book Name: "+addressDatabaseName);
     	System.out.println("Details of Contacts in the database: ");
     	for(Contacts c:database) {
