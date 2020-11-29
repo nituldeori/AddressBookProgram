@@ -326,6 +326,7 @@ public class AddressBookMain {
 			}
 			else if(ch1==4) {
 				int flag4=0;
+				int count1=0;
 				if(ABD.getMegaDatabase().size()==0) {
 					System.out.println("No Address Book are present!");
 					continue;
@@ -337,6 +338,7 @@ public class AddressBookMain {
 						if(c.getCity().equals(city)) {
 							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" City: "+c.getCity()+" State: "+c.getState()+
 									" Zip: "+c.getZip()+" Phone: "+c.getPhoneNumber()+" email: "+c.getEmail());
+							count1++;
 							flag4=1;
 						}
 					}
@@ -344,10 +346,13 @@ public class AddressBookMain {
 				if(flag4==0) {
 					System.out.println("No contact in the given city found");
 				}
+				else
+					System.out.println("No of persons in city "+city+ ": "+count1);
 			}
 			
 			else if(ch1==5) {
 				int flag5=0;
+				int count2=0;
 				if(ABD.getMegaDatabase().size()==0) {
 					System.out.println("No Address Book are present!");
 					continue;
@@ -359,6 +364,7 @@ public class AddressBookMain {
 						if(c.getState().equals(state)) {
 							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" City: "+c.getCity()+" State: "+c.getState()+
 									" Zip: "+c.getZip()+" Phone: "+c.getPhoneNumber()+" email: "+c.getEmail());
+							count2++;
 							flag5=1;
 						}
 					}
@@ -366,6 +372,8 @@ public class AddressBookMain {
 				if(flag5==0) {
 					System.out.println("No contact in the given state found");
 				}
+				else
+					System.out.println("No of persons in state "+state+": "+count2);
 			}
 		}
 	}
