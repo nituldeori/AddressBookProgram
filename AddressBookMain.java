@@ -44,38 +44,58 @@ public class AddressBookMain {
 									String firstName = sc.nextLine();
 									System.out.println("Enter the last name of contact: ");
 									String lastName = sc.nextLine();
-									System.out.println("Enter the address of contact: ");
-									String address = sc.nextLine();
-									System.out.println("Enter the city of contact: ");
-									String city = sc.nextLine();
-									System.out.println("Enter the state of contact: ");
-									String state = sc.nextLine();
-									System.out.println("Enter the zip of contact: ");
-									long zip = sc.nextLong();
-									sc.nextLine();
-									System.out.println("Enter the phone number of contact: ");
-									String phoneNumber = sc.nextLine();
-									System.out.println("Enter the email of contact: ");
-									String email = sc.nextLine();
-									Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+									if(AD.getDatabase().size()!=0) {
+										for(Contacts c1:AD.getDatabase()) {
+											if(c1.getFirstName().equals(firstName) && c1.getLastName().equals(lastName)) {
+												System.out.println("The given contact is already present in the AddressBook: "+addressDatabaseName);
+												break;
+											}
+										}
+									}
+									    System.out.println("Enter the address of contact: ");
+									    String address = sc.nextLine();
+									    System.out.println("Enter the city of contact: ");
+									    String city = sc.nextLine();
+									    System.out.println("Enter the state of contact: ");
+									    String state = sc.nextLine();
+									    System.out.println("Enter the zip of contact: ");
+									    long zip = sc.nextLong();
+									    sc.nextLine();
+									    System.out.println("Enter the phone number of contact: ");
+									    String phoneNumber = sc.nextLine();
+									    System.out.println("Enter the email of contact: ");
+									    String email = sc.nextLine();
+									
+									    Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+									    AD.getDatabase().add(c);
 
-									AD.getDatabase().add(c);
-									AD.printDatabase();
+									    
+									    AD.printDatabase();
 									break;
 								case 3:
+									int flag1=0;
+									if(AD.getDatabase().size()==0) {
+										System.out.println("Address Book is empty");
+										break;
+									}
 									System.out.println("Enter the first name of the contact to be deleted: ");
 									String deletefirstName = sc.nextLine();
 									System.out.println("Enter the last name of the contact to be deleted: ");
 									String deletelastName = sc.nextLine();
+									
 									for (Contacts co: AD.getDatabase()) {
 										if (co.getFirstName().equals(deletefirstName) && co.getLastName().equals(deletelastName)) {
 
 											AD.getDatabase().remove(co);
+											System.out.println("Contact Deleted Successfully!");
+											flag1=1;
+											break;
 
 										}
 
 									}
-									System.out.println("The given contact does not exist in the address book");
+									if(flag1==0)
+									    System.out.println("The given contact does not exist in the address book");
 									AD.printDatabase();
 									break;
 								case 2:
@@ -142,25 +162,40 @@ public class AddressBookMain {
 								String firstName = sc.nextLine();
 								System.out.println("Enter the last name of contact: ");
 								String lastName = sc.nextLine();
-								System.out.println("Enter the address of contact: ");
-								String address = sc.nextLine();
-								System.out.println("Enter the city of contact: ");
-								String city = sc.nextLine();
-								System.out.println("Enter the state of contact: ");
-								String state = sc.nextLine();
-								System.out.println("Enter the zip of contact: ");
-								long zip = sc.nextLong();
-								sc.nextLine();
-								System.out.println("Enter the phone number of contact: ");
-								String phoneNumber = sc.nextLine();
-								System.out.println("Enter the email of contact: ");
-								String email = sc.nextLine();
-								Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+								if(AD.getDatabase().size()!=0) {
+									for(Contacts c1:AD.getDatabase()) {
+										if(c1.getFirstName().equals(firstName) && c1.getLastName().equals(lastName)) {
+											System.out.println("The given contact is already present in the AddressBook: "+addressDatabaseName);
+											break;
+										}
+									}
+								}
+								    System.out.println("Enter the address of contact: ");
+								    String address = sc.nextLine();
+								    System.out.println("Enter the city of contact: ");
+								    String city = sc.nextLine();
+								    System.out.println("Enter the state of contact: ");
+								    String state = sc.nextLine();
+								    System.out.println("Enter the zip of contact: ");
+								    long zip = sc.nextLong();
+								    sc.nextLine();
+								    System.out.println("Enter the phone number of contact: ");
+								    String phoneNumber = sc.nextLine();
+								    System.out.println("Enter the email of contact: ");
+								    String email = sc.nextLine();
+								
+								    Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+								    AD.getDatabase().add(c);
 
-								AD.getDatabase().add(c);
-								AD.printDatabase();
+								    
+								    AD.printDatabase();
 								break;
 							case 3:
+								int flag2=0;
+								if(AD.getDatabase().size()==0) {
+									System.out.println("Address Book is empty");
+									break;
+								}
 								System.out.println("Enter the first name of the contact to be deleted: ");
 								String deletefirstName = sc.nextLine();
 								System.out.println("Enter the last name of the contact to be deleted: ");
@@ -169,11 +204,15 @@ public class AddressBookMain {
 									if (co.getFirstName().equals(deletefirstName) && co.getLastName().equals(deletelastName)) {
 
 										AD.getDatabase().remove(co);
+										System.out.println("Contact Deleted Successully!");
+										flag2=1;
+										break;
 
 									}
 
 								}
-								System.out.println("The given contact does not exist in the address book");
+								if(flag2==0)
+								    System.out.println("The given contact does not exist in the address book");
 								AD.printDatabase();
 								break;
 							case 2:
