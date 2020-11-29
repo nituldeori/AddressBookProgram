@@ -8,11 +8,13 @@ public class AddressBookMain {
 		int ch1 = 0;
 		int flag = 1;
 		AddressBookDatabase ABD = new AddressBookDatabase();
-		while (ch1 != 4) {
+		while (ch1 != 6) {
 			System.out.println("1. Create new Address Book");
 			System.out.println("2. Search for person in City");
 			System.out.println("3. Search for person in State");
-			System.out.println("4. Exit");
+			System.out.println("4. View persons by City");
+			System.out.println("5. View persons by State");
+			System.out.println("6. Exit");
 			System.out.println("Enter your Choice: ");
 			ch1 = sc.nextInt();
 			sc.nextLine();
@@ -320,6 +322,49 @@ public class AddressBookMain {
 				}
 				if(flag3==0) {
 					System.out.println("No contact with that name is found in city "+state);
+				}
+			}
+			else if(ch1==4) {
+				int flag4=0;
+				if(ABD.getMegaDatabase().size()==0) {
+					System.out.println("No Address Book are present!");
+					continue;
+				}
+				System.out.println("Enter the name of the city: ");
+				String city=sc.nextLine();
+				for(AddressDatabase a:ABD.getMegaDatabase()) {
+					for(Contacts c:a.getDatabase()) {
+						if(c.getCity().equals(city)) {
+							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" City: "+c.getCity()+" State: "+c.getState()+
+									" Zip: "+c.getZip()+" Phone: "+c.getPhoneNumber()+" email: "+c.getEmail());
+							flag4=1;
+						}
+					}
+				}
+				if(flag4==0) {
+					System.out.println("No contact in the given city found");
+				}
+			}
+			
+			else if(ch1==5) {
+				int flag5=0;
+				if(ABD.getMegaDatabase().size()==0) {
+					System.out.println("No Address Book are present!");
+					continue;
+				}
+				System.out.println("Enter the name of the state: ");
+				String state=sc.nextLine();
+				for(AddressDatabase a:ABD.getMegaDatabase()) {
+					for(Contacts c:a.getDatabase()) {
+						if(c.getState().equals(state)) {
+							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" City: "+c.getCity()+" State: "+c.getState()+
+									" Zip: "+c.getZip()+" Phone: "+c.getPhoneNumber()+" email: "+c.getEmail());
+							flag5=1;
+						}
+					}
+				}
+				if(flag5==0) {
+					System.out.println("No contact in the given state found");
 				}
 			}
 		}
