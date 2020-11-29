@@ -5,17 +5,19 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("******* Welcome to Address Book Program ********");
-		int ch = 0;
+		int ch1 = 0;
 		int flag = 1;
 		AddressBookDatabase ABD = new AddressBookDatabase();
-		while (ch != 2) {
+		while (ch1 != 4) {
 			System.out.println("1. Create new Address Book");
-			System.out.println("2. Exit");
+			System.out.println("2. Search for person in City");
+			System.out.println("3. Search for person in State");
+			System.out.println("4. Exit");
 			System.out.println("Enter your Choice: ");
-			ch = sc.nextInt();
+			ch1 = sc.nextInt();
 			sc.nextLine();
 
-			if (ch == 1) {
+			if (ch1 == 1) {
 
 				System.out.println("Enter the Address Book Name: ");
 				String addressDatabaseName = sc.nextLine();
@@ -30,6 +32,7 @@ public class AddressBookMain {
 					if (flag == 1) {
 						ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 						AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
+						int ch=0;
 						while (ch != 4) {
 							System.out.println("Enter your choice");
 							System.out.println("1. Add contact to Address Book");
@@ -148,6 +151,7 @@ public class AddressBookMain {
 				} else {
 					ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 					AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
+					int ch=0;
 					while (ch != 4) {
 						System.out.println("Enter your choice");
 						System.out.println("1. Add contact to Address Book");
@@ -265,6 +269,57 @@ public class AddressBookMain {
 					flag = 1;
 					ABD.printAddressBooks();
 
+				}
+			}
+			else if(ch1==2) {
+				if(ABD.getMegaDatabase().size()==0) {
+					System.out.println("No Address Book are present!");
+					continue;
+				}
+				int flag3=0;
+				System.out.println("Enter the name of the City where you want to search the person: ");
+				String city=sc.nextLine();
+				System.out.println("Enter the first name of the person you want to search in city "+city);
+				String fName=sc.nextLine();
+				System.out.println("Enter the last name of the person you want to search in city "+city);
+				String lName=sc.nextLine();
+				for(AddressDatabase a:ABD.getMegaDatabase()) {
+					for(Contacts c:a.getDatabase()) {
+						if(c.getCity().equals(city) && c.getFirstName().equals(fName) && c.getLastName().equals(lName)) {
+							System.out.println("Person Found in Address Book: "+a.getAddressDatabaseName());
+							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" City: "+city);
+							flag3=1;
+						}
+					}
+				}
+				if(flag3==0) {
+					System.out.println("No contact with that name is found in city "+city);
+				}
+				
+			}
+			else if(ch1==3) {
+				if(ABD.getMegaDatabase().size()==0) {
+					System.out.println("No Address Book are present!");
+					continue;
+				}
+				int flag3=0;
+				System.out.println("Enter the name of the State where you want to search the person: ");
+				String state=sc.nextLine();
+				System.out.println("Enter the first name of the person you want to search in state "+state);
+				String fName=sc.nextLine();
+				System.out.println("Enter the last name of the person you want to search in state "+state);
+				String lName=sc.nextLine();
+				for(AddressDatabase a:ABD.getMegaDatabase()) {
+					for(Contacts c:a.getDatabase()) {
+						if(c.getState().equals(state) && c.getFirstName().equals(fName) && c.getLastName().equals(lName)) {
+							System.out.println("Person Found in Address Book "+a.getAddressDatabaseName());
+							System.out.println("FirstName: "+c.getFirstName()+" LastName: "+c.getLastName()+" State: "+state);
+							flag3=1;
+						}
+					}
+				}
+				if(flag3==0) {
+					System.out.println("No contact with that name is found in city "+state);
 				}
 			}
 		}
