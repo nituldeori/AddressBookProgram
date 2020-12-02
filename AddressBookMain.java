@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 public class AddressBookMain {
 	public static void main(String[] args) {
@@ -38,12 +39,13 @@ public class AddressBookMain {
 						ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 						AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
 						int ch = 0;
-						while (ch != 4) {
+						while (ch != 5) {
 							System.out.println("Enter your choice");
 							System.out.println("1. Add contact to Address Book");
 							System.out.println("2. Modify contact in Address Book");
 							System.out.println("3. Delete contact in Address Book");
-							System.out.println("4. Exit");
+							System.out.println("4. Sort contact by First Name");
+							System.out.println("5. Exit");
 							ch = sc.nextInt();
 							sc.nextLine();
 							switch (ch) {
@@ -144,6 +146,16 @@ public class AddressBookMain {
 									}
 									System.out.println("The given contact does not exist in the address book");
 									AD.printDatabase();
+								case 4: List<Contacts> list=(AD.getDatabase()).stream().sorted(Comparator.comparing(Contacts::getFirstName)).collect(Collectors.toList());
+								        if(list.size()==0) {
+								        	System.out.println("No contact present in the address book: "+AD.getAddressDatabaseName());
+								        }
+								        else {
+								        	for(Contacts c1:list) {
+								        		System.out.println("FirstName: " + c1.getFirstName() + " LastName: " + c1.getLastName() + " City: " + c1.getCity() + " State: " + c1.getState() +
+														" Zip: " + c1.getZip() + " Phone: " + c1.getPhoneNumber() + " email: " + c1.getEmail());
+								        	}
+								        }
 								default:
 									break;
 
@@ -161,12 +173,13 @@ public class AddressBookMain {
 					ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 					AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
 					int ch = 0;
-					while (ch != 4) {
+					while (ch != 5) {
 						System.out.println("Enter your choice");
 						System.out.println("1. Add contact to Address Book");
 						System.out.println("2. Modify contact in Address Book");
 						System.out.println("3. Delete contact in Address Book");
-						System.out.println("4. Exit");
+						System.out.println("4. Sort contact by First Name");
+						System.out.println("5. Exit");
 						ch = sc.nextInt();
 						sc.nextLine();
 						switch (ch) {
@@ -288,6 +301,16 @@ public class AddressBookMain {
 								}
 								System.out.println("The given contact does not exist in the address book");
 								AD.printDatabase();
+							case 4: List<Contacts> list=(AD.getDatabase()).stream().sorted(Comparator.comparing(Contacts::getFirstName)).collect(Collectors.toList());
+					        if(list.size()==0) {
+					        	System.out.println("No contact present in the address book: "+AD.getAddressDatabaseName());
+					        }
+					        else {
+					        	for(Contacts c1:list) {
+					        		System.out.println("FirstName: " + c1.getFirstName() + " LastName: " + c1.getLastName() + " City: " + c1.getCity() + " State: " + c1.getState() +
+											" Zip: " + c1.getZip() + " Phone: " + c1.getPhoneNumber() + " email: " + c1.getEmail());
+					        	}
+					        } 
 							default:
 								break;
 
