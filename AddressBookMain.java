@@ -1,6 +1,9 @@
 package addressBook;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 public class AddressBookMain {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -303,53 +306,41 @@ public class AddressBookMain {
 					System.out.println("No Address Book are present!");
 					continue;
 				}
-				int flag3 = 0;
+				
 				System.out.println("Enter the name of the City where you want to search the person: ");
 				String city = sc.nextLine();
-				System.out.println("Enter the first name of the person you want to search in city " + city);
-				String fName = sc.nextLine();
-				System.out.println("Enter the last name of the person you want to search in city " + city);
-				String lName = sc.nextLine();
 				for (AddressDatabase a: ABD.getMegaDatabase()) {
-					for (Contacts c: a.getDatabase()) {
-						if (c.getCity().equals(city) && c.getFirstName().equals(fName) && c.getLastName().equals(lName)) {
-							System.out.println("Person Found in Address Book: " + a.getAddressDatabaseName());
-							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " City: " + city);
-							flag3 = 1;
+					List<Contacts> list=(a.getDatabase()).stream().filter(user->city.equals(user.getCity())).collect(Collectors.toList());
+					if(list.size()==0) {
+						System.out.println("No contact found in city: "+city);
+					}
+					else {
+						for(Contacts c:list) {
+							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " City: " + c.getCity() + " State: " + c.getState() +
+									" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
 						}
 					}
 				}
-				if (flag3 == 0) {
-					System.out.println("No contact with that name is found in city " + city);
-				}
-
 			} else if (ch1 == 3) {
 				if (ABD.getMegaDatabase().size() == 0) {
 					System.out.println("No Address Book are present!");
 					continue;
 				}
-				int flag3 = 0;
 				System.out.println("Enter the name of the State where you want to search the person: ");
 				String state = sc.nextLine();
-				System.out.println("Enter the first name of the person you want to search in state " + state);
-				String fName = sc.nextLine();
-				System.out.println("Enter the last name of the person you want to search in state " + state);
-				String lName = sc.nextLine();
 				for (AddressDatabase a: ABD.getMegaDatabase()) {
-					for (Contacts c: a.getDatabase()) {
-						if (c.getState().equals(state) && c.getFirstName().equals(fName) && c.getLastName().equals(lName)) {
-							System.out.println("Person Found in Address Book " + a.getAddressDatabaseName());
-							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " State: " + state);
-							flag3 = 1;
+					List<Contacts> list=(a.getDatabase()).stream().filter(user->state.equals(user.getState())).collect(Collectors.toList());
+					if(list.size()==0) {
+						System.out.println("No contact found in city: "+state);
+					}
+					else {
+						for(Contacts c:list) {
+							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " City: " + c.getCity() + " State: " + c.getState() +
+									" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
 						}
 					}
 				}
-				if (flag3 == 0) {
-					System.out.println("No contact with that name is found in city " + state);
-				}
 			} else if (ch1 == 4) {
-				int flag4 = 0;
-				int count1 = 0;
 				if (ABD.getMegaDatabase().size() == 0) {
 					System.out.println("No Address Book are present!");
 					continue;
@@ -357,42 +348,38 @@ public class AddressBookMain {
 				System.out.println("Enter the name of the city: ");
 				String city = sc.nextLine();
 				for (AddressDatabase a: ABD.getMegaDatabase()) {
-					for (Contacts c: a.getDatabase()) {
-						if (c.getCity().equals(city)) {
+					List<Contacts> list=(a.getDatabase()).stream().filter(user->city.equals(user.getCity())).collect(Collectors.toList());
+					if(list.size()==0) {
+						System.out.println("No contact found in city: "+city);
+					}
+					else {
+						for(Contacts c:list) {
 							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " City: " + c.getCity() + " State: " + c.getState() +
-								" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
-							count1++;
-							flag4 = 1;
+									" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
 						}
+						System.out.println("Total no of person's in city "+city+": "+list.size());
 					}
 				}
-				if (flag4 == 0) {
-					System.out.println("No contact in the given city found");
-				} else
-					System.out.println("No of persons in city " + city + ": " + count1);
 			} else if (ch1 == 5) {
-				int flag5 = 0;
-				int count2 = 0;
 				if (ABD.getMegaDatabase().size() == 0) {
 					System.out.println("No Address Book are present!");
 					continue;
 				}
-				System.out.println("Enter the name of the state: ");
+				System.out.println("Enter the name of the State: ");
 				String state = sc.nextLine();
 				for (AddressDatabase a: ABD.getMegaDatabase()) {
-					for (Contacts c: a.getDatabase()) {
-						if (c.getState().equals(state)) {
+					List<Contacts> list=(a.getDatabase()).stream().filter(user->state.equals(user.getState())).collect(Collectors.toList());
+					if(list.size()==0) {
+						System.out.println("No contact found in city: "+state);
+					}
+					else {
+						for(Contacts c:list) {
 							System.out.println("FirstName: " + c.getFirstName() + " LastName: " + c.getLastName() + " City: " + c.getCity() + " State: " + c.getState() +
-								" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
-							count2++;
-							flag5 = 1;
+									" Zip: " + c.getZip() + " Phone: " + c.getPhoneNumber() + " email: " + c.getEmail());
 						}
+						System.out.println("Total no of person's in "+state+": "+list.size());
 					}
 				}
-				if (flag5 == 0) {
-					System.out.println("No contact in the given state found");
-				} else
-					System.out.println("No of persons in state " + state + ": " + count2);
 			}
 		}
 		System.out.println("Thank you for using our Address Book");
