@@ -1,6 +1,10 @@
 package addressBook;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -38,6 +42,14 @@ public class AddressBookMain {
 					if (flag == 1) {
 						ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 						AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
+						String fileName=addressDatabaseName+".txt";
+						File myObj=new File(fileName);
+						try {
+							boolean create=myObj.createNewFile();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						int ch = 0;
 						while (ch != 8) {
 							System.out.println("Enter your choice");
@@ -54,6 +66,7 @@ public class AddressBookMain {
 							sc.nextLine();
 							switch (ch) {
 								case 1:
+									int store = 1;
 									System.out.println("Enter the first name of contact: ");
 									String firstName = sc.nextLine();
 									System.out.println("Enter the last name of contact: ");
@@ -62,29 +75,73 @@ public class AddressBookMain {
 										for (Contacts c1: AD.getDatabase()) {
 											if (c1.getFirstName().equals(firstName) && c1.getLastName().equals(lastName)) {
 												System.out.println("The given contact is already present in the AddressBook: " + addressDatabaseName);
+												store = 0;
 												break;
 											}
 										}
-									}
-									System.out.println("Enter the address of contact: ");
-									String address = sc.nextLine();
-									System.out.println("Enter the city of contact: ");
-									String city = sc.nextLine();
-									System.out.println("Enter the state of contact: ");
-									String state = sc.nextLine();
-									System.out.println("Enter the zip of contact: ");
-									long zip = sc.nextLong();
-									sc.nextLine();
-									System.out.println("Enter the phone number of contact: ");
-									String phoneNumber = sc.nextLine();
-									System.out.println("Enter the email of contact: ");
-									String email = sc.nextLine();
+										if (store == 1) {
+											System.out.println("Enter the address of contact: ");
+											String address = sc.nextLine();
+											System.out.println("Enter the city of contact: ");
+											String city = sc.nextLine();
+											System.out.println("Enter the state of contact: ");
+											String state = sc.nextLine();
+											System.out.println("Enter the zip of contact: ");
+											long zip = sc.nextLong();
+											sc.nextLine();
+											System.out.println("Enter the phone number of contact: ");
+											String phoneNumber = sc.nextLine();
+											System.out.println("Enter the email of contact: ");
+											String email = sc.nextLine();
 
-									Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
-									AD.getDatabase().add(c);
+											Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+											try {
+												FileWriter myWriter=new FileWriter(fileName,true);
+												BufferedWriter bw=new BufferedWriter(myWriter);
+												bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
+												bw.newLine();
+												bw.close();
+											} catch (IOException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											AD.getDatabase().add(c);
+										} else
+											break;
+									} else {
+										System.out.println("Enter the address of contact: ");
+										String address = sc.nextLine();
+										System.out.println("Enter the city of contact: ");
+										String city = sc.nextLine();
+										System.out.println("Enter the state of contact: ");
+										String state = sc.nextLine();
+										System.out.println("Enter the zip of contact: ");
+										long zip = sc.nextLong();
+										sc.nextLine();
+										System.out.println("Enter the phone number of contact: ");
+										String phoneNumber = sc.nextLine();
+										System.out.println("Enter the email of contact: ");
+										String email = sc.nextLine();
+
+										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+										AD.getDatabase().add(c);
+										try {
+											FileWriter myWriter=new FileWriter(fileName,true);
+											BufferedWriter bw=new BufferedWriter(myWriter);
+											bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
+											bw.newLine();
+											bw.close();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										
+									    }
+									}
 
 									AD.printDatabase();
 									break;
+								    
+
 								case 3:
 									int flag1 = 0;
 									if (AD.getDatabase().size() == 0) {
@@ -211,6 +268,14 @@ public class AddressBookMain {
 				} else {
 					ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 					AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
+					String fileName=addressDatabaseName+".txt";
+					File myObj=new File(fileName);
+					try {
+						boolean create=myObj.createNewFile();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					int ch = 0;
 					while (ch != 8) {
 						System.out.println("Enter your choice");
@@ -255,6 +320,16 @@ public class AddressBookMain {
 										String email = sc.nextLine();
 
 										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+										try {
+											FileWriter myWriter=new FileWriter(fileName,true);
+											BufferedWriter bw=new BufferedWriter(myWriter);
+											bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
+											bw.newLine();
+											bw.close();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
 										AD.getDatabase().add(c);
 									} else
 										break;
@@ -275,6 +350,17 @@ public class AddressBookMain {
 
 									Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
 									AD.getDatabase().add(c);
+									try {
+										FileWriter myWriter=new FileWriter(fileName,true);
+										BufferedWriter bw=new BufferedWriter(myWriter);
+										bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
+										bw.newLine();
+										bw.close();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									
+								    }
 								}
 
 								AD.printDatabase();
