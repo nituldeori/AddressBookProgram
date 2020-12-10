@@ -1,6 +1,9 @@
 package addressBook;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import com.opencsv.CSVWriter;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -42,7 +45,7 @@ public class AddressBookMain {
 					if (flag == 1) {
 						ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 						AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
-						String fileName=addressDatabaseName+".txt";
+						String fileName=addressDatabaseName+".csv";
 						File myObj=new File(fileName);
 						try {
 							boolean create=myObj.createNewFile();
@@ -96,11 +99,11 @@ public class AddressBookMain {
 
 											Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
 											try {
-												FileWriter myWriter=new FileWriter(fileName,true);
-												BufferedWriter bw=new BufferedWriter(myWriter);
-												bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
-												bw.newLine();
-												bw.close();
+												FileWriter myWriter=new FileWriter(myObj,true);
+												CSVWriter writer=new CSVWriter(myWriter);
+												String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
+												writer.writeNext(data);
+												writer.close();
 											} catch (IOException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
@@ -126,11 +129,13 @@ public class AddressBookMain {
 										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
 										AD.getDatabase().add(c);
 										try {
-											FileWriter myWriter=new FileWriter(fileName,true);
-											BufferedWriter bw=new BufferedWriter(myWriter);
-											bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
-											bw.newLine();
-											bw.close();
+											FileWriter myWriter=new FileWriter(myObj,true);
+											CSVWriter writer=new CSVWriter(myWriter);
+											String[] header= {"FirstName", "LastName", "Address", "City", "State", "Zip", "PhoneNo", "Email"};
+											writer.writeNext(header);
+											String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
+											writer.writeNext(data);
+											writer.close();
 										} catch (IOException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
@@ -268,7 +273,7 @@ public class AddressBookMain {
 				} else {
 					ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 					AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
-					String fileName=addressDatabaseName+".txt";
+					String fileName=addressDatabaseName+".csv";
 					File myObj=new File(fileName);
 					try {
 						boolean create=myObj.createNewFile();
@@ -321,11 +326,11 @@ public class AddressBookMain {
 
 										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
 										try {
-											FileWriter myWriter=new FileWriter(fileName,true);
-											BufferedWriter bw=new BufferedWriter(myWriter);
-											bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
-											bw.newLine();
-											bw.close();
+											FileWriter myWriter=new FileWriter(myObj,true);
+											CSVWriter writer=new CSVWriter(myWriter);
+											String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
+											writer.writeNext(data);
+											writer.close();
 										} catch (IOException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
@@ -351,11 +356,13 @@ public class AddressBookMain {
 									Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
 									AD.getDatabase().add(c);
 									try {
-										FileWriter myWriter=new FileWriter(fileName,true);
-										BufferedWriter bw=new BufferedWriter(myWriter);
-										bw.write("FirstName: "+firstName+" LastName: "+lastName+" Address: "+address+" City: "+city+" State: "+state+" Zip: "+zip+" PhoneNo: "+phoneNumber+" Email: "+email);
-										bw.newLine();
-										bw.close();
+										FileWriter myWriter=new FileWriter(myObj,true);
+										CSVWriter writer=new CSVWriter(myWriter);
+										String[] header= {"FirstName", "LastName", "Address", "City", "State", "Zip", "PhoneNo", "Email"};
+										writer.writeNext(header);
+										String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
+										writer.writeNext(data);
+										writer.close();
 									} catch (IOException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
