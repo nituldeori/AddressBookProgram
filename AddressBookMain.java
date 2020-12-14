@@ -2,6 +2,9 @@ package addressBook;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.opencsv.CSVWriter;
 
 import java.io.BufferedWriter;
@@ -45,14 +48,10 @@ public class AddressBookMain {
 					if (flag == 1) {
 						ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 						AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
-						String fileName=addressDatabaseName+".csv";
-						File myObj=new File(fileName);
-						try {
-							boolean create=myObj.createNewFile();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						String fileName=addressDatabaseName+".json";
+						JSONArray contactList = new JSONArray();
+						
+						 
 						int ch = 0;
 						while (ch != 8) {
 							System.out.println("Enter your choice");
@@ -64,7 +63,7 @@ public class AddressBookMain {
 							System.out.println("6. Sort contact by State");
 							System.out.println("7. Sort contact by Zip");
 							System.out.println("8. Exit");
-							
+							JSONObject contactDetails = new JSONObject();
 							ch = sc.nextInt();
 							sc.nextLine();
 							switch (ch) {
@@ -98,16 +97,20 @@ public class AddressBookMain {
 											String email = sc.nextLine();
 
 											Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
-											try {
-												FileWriter myWriter=new FileWriter(myObj,true);
-												CSVWriter writer=new CSVWriter(myWriter);
-												String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
-												writer.writeNext(data);
-												writer.close();
-											} catch (IOException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
+											
+											contactDetails.put("FirstName", firstName);
+									        contactDetails.put("LastName", lastName);
+									        contactDetails.put("Address", address);
+									        contactDetails.put("City", city);
+									        contactDetails.put("State", state);
+									        contactDetails.put("Zip", zip);
+									        contactDetails.put("PhoneNo", phoneNumber);
+									        contactDetails.put("Email", email);
+									        JSONObject contactObject = new JSONObject(); 
+									        contactObject.put("contact", contactDetails);
+											
+									        contactList.put(contactObject);
+									         
 											AD.getDatabase().add(c);
 										} else
 											break;
@@ -127,20 +130,19 @@ public class AddressBookMain {
 										String email = sc.nextLine();
 
 										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+										contactDetails.put("FirstName", firstName);
+								        contactDetails.put("LastName", lastName);
+								        contactDetails.put("Address", address);
+								        contactDetails.put("City", city);
+								        contactDetails.put("State", state);
+								        contactDetails.put("Zip", zip);
+								        contactDetails.put("PhoneNo", phoneNumber);
+								        contactDetails.put("Email", email);
+								        JSONObject contactObject = new JSONObject(); 
+								        contactObject.put("contact", contactDetails);
+								        contactList.put(contactObject);
 										AD.getDatabase().add(c);
-										try {
-											FileWriter myWriter=new FileWriter(myObj,true);
-											CSVWriter writer=new CSVWriter(myWriter);
-											String[] header= {"FirstName", "LastName", "Address", "City", "State", "Zip", "PhoneNo", "Email"};
-											writer.writeNext(header);
-											String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
-											writer.writeNext(data);
-											writer.close();
-										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
 										
-									    }
 									}
 
 									AD.printDatabase();
@@ -259,11 +261,24 @@ public class AddressBookMain {
 						                break;
 								default:
 									break;
+								
 
 							}
+							
+							
 
 						}
+						try (FileWriter file = new FileWriter(fileName)) {
+				        	 
+				            file.write(contactList.toString());
+				 
+				        } catch (IOException e) {
+				            e.printStackTrace();
+				        }
 						ABD.addAddressBook(AD);
+						
+						
+				        
 
 						ABD.printAddressBooks();
 
@@ -273,14 +288,9 @@ public class AddressBookMain {
 				} else {
 					ArrayList<Contacts> contactsStore = new ArrayList<Contacts> ();
 					AddressDatabase AD = new AddressDatabase(contactsStore, addressDatabaseName);
-					String fileName=addressDatabaseName+".csv";
-					File myObj=new File(fileName);
-					try {
-						boolean create=myObj.createNewFile();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					String fileName=addressDatabaseName+".json";
+					JSONArray contactList = new JSONArray();
+					
 					int ch = 0;
 					while (ch != 8) {
 						System.out.println("Enter your choice");
@@ -294,6 +304,7 @@ public class AddressBookMain {
 						System.out.println("8. Exit");
 						ch = sc.nextInt();
 						sc.nextLine();
+						JSONObject contactDetails = new JSONObject();
 						switch (ch) {
 							case 1:
 								int store = 1;
@@ -325,16 +336,17 @@ public class AddressBookMain {
 										String email = sc.nextLine();
 
 										Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
-										try {
-											FileWriter myWriter=new FileWriter(myObj,true);
-											CSVWriter writer=new CSVWriter(myWriter);
-											String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
-											writer.writeNext(data);
-											writer.close();
-										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
+										contactDetails.put("FirstName", firstName);
+								        contactDetails.put("LastName", lastName);
+								        contactDetails.put("Address", address);
+								        contactDetails.put("City", city);
+								        contactDetails.put("State", state);
+								        contactDetails.put("Zip", zip);
+								        contactDetails.put("PhoneNo", phoneNumber);
+								        contactDetails.put("Email", email);
+								        JSONObject contactObject = new JSONObject(); 
+								        contactObject.put("contact", contactDetails);
+								        contactList.put(contactObject);
 										AD.getDatabase().add(c);
 									} else
 										break;
@@ -354,20 +366,19 @@ public class AddressBookMain {
 									String email = sc.nextLine();
 
 									Contacts c = new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
+									contactDetails.put("FirstName", firstName);
+							        contactDetails.put("LastName", lastName);
+							        contactDetails.put("Address", address);
+							        contactDetails.put("City", city);
+							        contactDetails.put("State", state);
+							        contactDetails.put("Zip", zip);
+							        contactDetails.put("PhoneNo", phoneNumber);
+							        contactDetails.put("Email", email);
+							        JSONObject contactObject = new JSONObject(); 
+							        contactObject.put("contact", contactDetails);
+							        contactList.put(contactObject);
 									AD.getDatabase().add(c);
-									try {
-										FileWriter myWriter=new FileWriter(myObj,true);
-										CSVWriter writer=new CSVWriter(myWriter);
-										String[] header= {"FirstName", "LastName", "Address", "City", "State", "Zip", "PhoneNo", "Email"};
-										writer.writeNext(header);
-										String[] data= {firstName, lastName, address, city, state, String.valueOf(zip), phoneNumber, email};
-										writer.writeNext(data);
-										writer.close();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
 									
-								    }
 								}
 
 								AD.printDatabase();
@@ -487,6 +498,13 @@ public class AddressBookMain {
 
 					}
 					ABD.addAddressBook(AD);
+					try (FileWriter file = new FileWriter(fileName)) {
+			        	 
+			            file.write(contactList.toString());
+			 
+			        } catch (IOException e) {
+			            e.printStackTrace();
+			        }
 
 					ABD.printAddressBooks();
 					flag = 1;
